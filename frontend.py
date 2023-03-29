@@ -1,30 +1,60 @@
-import requests
 import streamlit as st
+import requests
 import pandas as pd
 
-st.title('Book Recommendation App')
+# Set up the Streamlit app
+st.set_page_config(page_title='Book Recommender')
 
-# Ask user for book title
-book_title = st.text_input('Enter book title:', '1984')
+# Define the API endpoint
+url = 'https://heroku-book-recommender.herokuapp.com/recommendation'
 
-if st.button('Get Recommendations'):
+# Define the function to make the API request and get the recommendations
+def get_recommendations(book_title):
+    # Set up the request parameters
+    params = {'title': book_title}
 
-    # Send a request to the Flask backend
-    res = requests.post('https://book-recommender-kate.herokuapp.com/', json={'title': book_title})
+    # Send the GET request to the API endpoint
+    r = requests.get(url, params=params)
+    st.write(r)
 
-    # Check if the request was successful
-    if res.status_code == 200:
-        # Convert the JSON response to a Pandas DataFrame
-        df_result = pd.DataFrame.from_records(res.json()['top_10'])
-        df_worst = pd.DataFrame.from_records(res.json()['bottom_10'])
-
-        # Display the top 10 and bottom 10 results
-        st.subheader(f'Top 10 recommendations for "{book_title}"')
-        st.write(df_result)
-
-        st.subheader(f'Bottom 10 recommendations for "{book_title}"')
-        st.write(df_worst)
-
+    # Parse the JSON response and return the results
+    if r.status_code == 200:
+        results = r.json()
+        return results['top_10'], results['bottom_10']
     else:
-        st.error('Failed to get recommendations')
+        st.error('Error getting recommendations from the API.')
+
+# Define the Streamlit app
+def app():
+    # Set up the app sidebar
+    st.sidebar.title('Book Recommender')
+    book_title = st.sidebar.text_input('Enter a book title', value='1984')
+
+    # Get the book recommendations from the backend API
+    top_10, bottom_10 = [], []
+    if st.sidebar.button('Get Recommendations'):
+        top_10, bottom_10 = get_recommendations(book_title)
+    else:
+        top_10, bottom_10 = [], []
+
+    # Display the book recommendations in the app
+    st.title(f'Top 10 Recommendations for {book_title}:')
+    if top_10:
+        df_top_10 = pd.DataFrame(top_10)
+        st.write(df_top_10)
+    else:
+        st.write('No recommendations found.')
+
+    st.title(f'Bottom 10 Recommendations for {book_title}:')
+    if bottom_10:
+        df_bottom_10 = pd.DataFrame(bottom_10)
+        st.write(df_bottom_10)
+    else:
+        st.write('No recommendations found.')
+
+# Run the Streamlit app
+if __name__ == '__main__':
+    app()
+
+
 
