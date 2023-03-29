@@ -1,1 +1,1 @@
-web: gunicorn frontend:res
+web: gunicorn book_recommender:app
