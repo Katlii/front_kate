@@ -1,2 +1,2 @@
-web: npm start
+web: streamlit run frontend.py
 
