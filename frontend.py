@@ -8,7 +8,7 @@ selected_books = st.text_input('book')
 
 if st.button('show rec'):
     # request recommendations from API
-    response = requests.get('http://localhost:5000/recommendations', params={'book': selected_books})
+    response = requests.get('https://book-recommender-kate.herokuapp.com/', params={'book': selected_books})
     data = response.json()
     
     # display recommendations
