@@ -1,2 +1,1 @@
-web: streamlit run frontend.py
-
+web: sh setup.sh && streamlit run app.py
