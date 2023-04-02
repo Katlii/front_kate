@@ -1,2 +1,15 @@
+# Ignore compiled Python files
 *.pyc
+
+# Ignore environment-specific files
+.env
+venv/
 __pycache__/
+
+# Ignore editor/IDE files
+.vscode/
+.idea/
+
+# Ignore build output
+dist/
+build/
