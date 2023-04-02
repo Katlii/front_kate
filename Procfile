@@ -1,1 +1,2 @@
-web: gunicorn book_recommender:app
+web: npm start
+
