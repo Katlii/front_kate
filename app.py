@@ -8,6 +8,7 @@ book_title = st.sidebar.text_input('Enter a book title')
 
 if st.sidebar.button('Get Recommendations'):
     response = requests.post('https://book-recommender-kate.herokuapp.com/', json={'book_title': book_title})
+    st.write(response)
     recommendations = response.json()
     
     st.title(f'Top 10 Recommendations for {book_title}:')
