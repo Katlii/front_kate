@@ -12,7 +12,7 @@ if st.sidebar.button('Get Recommendations'):
     
     st.title(f'Top 10 Recommendations for {book_title}:')
     if not recommendations['top_10']:
-        #st.write('No recommendations found.')
+        st.write('No recommendations found.')
     else:
         df_top_10 = pd.DataFrame(recommendations['top_10'])
         st.write(df_top_10)
