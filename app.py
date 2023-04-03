@@ -11,11 +11,11 @@ if st.sidebar.button('Get Recommendations'):
     #recommendations = response.json()
     
     st.title(f'Top 10 Recommendations for {book_title}:')
-    if response.empty:
-        st.write('No recommendations found.')
-    else:
-        df_top_10 = pd.DataFrame(result)
-        st.write(df_top_10)
+    #if response.empty:
+        #st.write('No recommendations found.')
+    #else:
+    df_top_10 = pd.DataFrame(result)
+    st.write(df_top_10)
     #if not recommendations['top_10']:
         #st.write('No recommendations found.')
     #else:
