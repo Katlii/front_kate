@@ -15,7 +15,7 @@ responseRatings = s3.get_object(Bucket='ratingsofbooks', Key='BX-Book-Ratings.cs
 
 csv_data1 = responseBook['Body'].read().decode('cp1251')
 csv_data2 = responseRatings['Body'].read().decode('cp1251')
-book_title = request.json['book_title']
+
 data1 = StringIO(csv_data1)
 data2 = StringIO(csv_data2)
 
@@ -41,7 +41,7 @@ if st.sidebar.button('Get Recommendations'):
     response = requests.post('https://book-recommender-kate.herokuapp.com/', json={'book_title': book_title}, allow_redirects =True)
     recommendations = response.json()
     
-    st.title(f'Top 10 Recommendations for {book_title}:')
+    st.title(f'Best 10 Recommendations for {book_title}:')
 
     if not recommendations['top_10']:
         st.write('No recommendations found.')
@@ -49,7 +49,7 @@ if st.sidebar.button('Get Recommendations'):
         df_top_10 = pd.DataFrame(recommendations['top_10'])
         st.write(df_top_10)
 
-    st.title(f'Bottom 10 Recommendations for {book_title}:')
+    st.title(f'Worst 10 Recommendations for {book_title}:')
     if not recommendations['bottom_10']:
         st.write('No recommendations found.')
     else:
