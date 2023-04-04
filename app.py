@@ -4,7 +4,13 @@ import pandas as pd
 
 st.set_page_config(page_title='Book Recommender')
 st.sidebar.title('Book Recommender')
-book_title = st.sidebar.text_input('Enter a book title')
+data = pd.read_csv('https://github.com/Katlii/heroku-book_recommendation/blob/master/BX-Books.csv')
+# Create a selection option from the column 'column_name'
+selection = st.sidebar.selectbox('Select an option', data['Book-Title'])
+
+# Display the selected option
+st.write('You selected:', selection)
+#book_title = st.sidebar.text_input('Enter a book title')
 
 if st.sidebar.button('Get Recommendations'):
     response = requests.post('https://book-recommender-kate.herokuapp.com/', json={'book_title': book_title}, allow_redirects =True)
