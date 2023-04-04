@@ -9,7 +9,7 @@ st.set_page_config(page_title='Book Recommender')
 st.sidebar.title('Book Recommender')
 
 book_title = st.sidebar.text_input('Enter a book title')
-s3 = boto3.client('s3', aws_access_key_id='AKIA2DEBGAQE3HVC2WML', aws_secret_access_key='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')
+s3 = boto3.client('s3', aws_access_key_id='AKIA2DEBGAQE53LTO5HS', aws_secret_access_key='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')
 responseBook = s3.get_object(Bucket='bookrecommender', Key='BX-Books.csv')
 responseRatings = s3.get_object(Bucket='ratingsofbooks', Key='BX-Book-Ratings.csv')
 
